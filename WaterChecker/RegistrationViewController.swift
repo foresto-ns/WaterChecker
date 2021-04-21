@@ -23,12 +23,12 @@ class RegistrationViewController: UIViewController {
         let newWeight = WeightField.text
         let newTarget = TargetField.text
         
-        if (newName?.count != 0 && newWeight?.count != 0 && newTarget?.count != 0 && Int(newTarget!) != nil && Int(newWeight!) != nil) {
+        if (newName?.count != 0 && newWeight?.count != 0 && newTarget?.count != 0 && Double(newTarget!) != nil && Double(newWeight!) != nil) {
             NewUser.ChangeName(NewName: newName!)
-            NewUser.ChangeWeigth(NewWeight: newWeight!)
-            NewUser.ChangeTarget(NewTarget: Int(newTarget!)!)
+            NewUser.ChangeWeigth(NewWeight: Double(newWeight!)!)
+            NewUser.ChangeTarget(NewTarget: Double(newTarget!)!)
             delegate?.update(text: newTarget!)
-        } else if Int(newWeight!) == nil{
+        } else if Double(newWeight!) == nil{
             let AlertController = UIAlertController(title: "Некорректный ввод", message: "Используйте цифры в строке 'Вес'", preferredStyle: .alert)
             
             let AlertAction = UIAlertAction(title: "OK", style: .default){
@@ -65,8 +65,10 @@ class RegistrationViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        NameField.text = NewUser.getName()
+        WeightField.text = String(format: "%.0f", NewUser.getWeight())
+        TargetField.text = String(format: "%.0f", NewUser.getTarget())
     }
 
 }

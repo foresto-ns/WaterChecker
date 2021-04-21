@@ -15,6 +15,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var textFromVC: String!
     
+    @IBOutlet weak var StartLabel: UILabel!
+    
+    @IBOutlet weak var AddButton: UIBarButtonItem!
+    
     @IBOutlet weak var ResultProgressView: UIProgressView!
     
     @IBOutlet weak var ResultProgressLabel: UILabel!
@@ -24,18 +28,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             destination.delegate = self
         }
     
-    @IBAction func PushAddAction(_ sender: Any) {
-        //let str: String = 
+    @IBAction func PushAddAction(_ sender: UIButton) {
+        
         AddQnt(qnt: "New qnt")
+        ResultProgressLabel.text = String(format: "%.0f/%.0f", NewUser.getCurrentResult(), NewUser.getTarget())
+        ResultProgressView.setProgress(Float(NewUser.getCurrentResult()/NewUser.getTarget()), animated: true)
         TableView.reloadData()
     }
     
     func update(text:String){
         ResultProgressView.alpha = 1
         ResultProgressLabel.alpha = 1
+        StartLabel.alpha = 0
         
-        ResultProgressLabel.text = "\(NewUser.CurrentResult)/\(text)"
-        ResultProgressView.setProgress(Float((NewUser.CurrentResult / Int(text)!)), animated: true)
+        ResultProgressLabel.text = String(format: "%.0f/%.0f", NewUser.getCurrentResult(), Double(text)!)
+        
+        ResultProgressView.setProgress(Float((NewUser.getCurrentResult() / Double(text)!)), animated: true)
+        
+        if !AddButton.self.isEnabled{
+            AddButton.self.isEnabled = true
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,6 +92,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         ResultProgressView.alpha = 0
         ResultProgressLabel.alpha = 0
+        AddButton.self.isEnabled = false
         
     }
 

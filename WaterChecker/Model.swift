@@ -7,31 +7,62 @@
 
 import Foundation
 
-var WaterData: [String] = []
+var WaterData: [[String: Any]] {
+    set {
+        UserDefaults.standard.set(WaterData, forKey: "WaterDataKey")
+        UserDefaults.standard.synchronize()
+    }
+    get {
+        if let array = UserDefaults.standard.array(forKey: "WaterDataKey") as? [[String: Any]] {
+            return array
+        } else {
+            return []
+        }
+    }
+}
 
 class User {
-    var Name: String
-    var Weight: String
-    var Target: Int
-    var CurrentResult: Int
+    private var Name: String
+    private var Weight: Double
+    private var Target: Double
+    private var CurrentResult: Double
     
     init(){
-        self.Name = "Test"
-        self.Weight = "20"
+        self.Name = "Введите имя"
+        self.Weight = 0
         self.Target = 0
         self.CurrentResult = 0
+    }
+    
+    func getName() -> String {
+        return self.Name
+    }
+    
+    func getWeight()  -> Double {
+        return self.Weight
+    }
+    
+    func getTarget() -> Double {
+        return self.Target
+    }
+    
+    func getCurrentResult() -> Double {
+        return self.CurrentResult
     }
     
     func ChangeName(NewName: String) {
         self.Name = NewName
     }
-    func ChangeWeigth(NewWeight: String) {
+    
+    func ChangeWeigth(NewWeight: Double) {
         self.Weight = NewWeight
     }
-    func ChangeTarget(NewTarget: Int){
+    
+    func ChangeTarget(NewTarget: Double){
         self.Target = NewTarget
     }
-    func ChangeCurrentResult(NewResult: Int){
+    
+    func ChangeCurrentResult(NewResult: Double){
         self.CurrentResult = self.CurrentResult + NewResult
     }
     
@@ -40,19 +71,11 @@ class User {
 var NewUser = User()
 
 func AddQnt(qnt: String) {
-    WaterData.append(qnt)
-    SaveData()
+    
+    //WaterData.append(["Quantity": qnt, "Time": time])
+    NewUser.ChangeCurrentResult(NewResult: 200)
 }
 
 func DelQnt(atIndex: Int) {
     WaterData.remove(at: atIndex)
-    SaveData()
-}
-
-func SaveData() {
-    
-}
-
-func LoadData() {
-    
 }
