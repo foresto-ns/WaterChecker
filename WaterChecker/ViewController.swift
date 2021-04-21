@@ -19,6 +19,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var ResultProgressLabel: UILabel!
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            guard let destination = segue.destination as? RegistrationViewController else { return }
+            destination.delegate = self
+        }
     
     @IBAction func PushAddAction(_ sender: Any) {
         //let str: String = 

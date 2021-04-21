@@ -9,6 +9,8 @@ import UIKit
 
 class RegistrationViewController: UIViewController {
 
+    weak var delegate: FirstViewControllerDelegate?
+    
     var NewUser = User()
     
     @IBOutlet weak var NameField: UITextField!
@@ -16,17 +18,16 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var TargetField: UITextField!
     
     @IBAction func SaveButton(_ sender: Any) {
-        let VC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         
         let newName = NameField.text
         let newWeight = WeightField.text
         let newTarget = TargetField.text
         
-        if newName != nil && newWeight != nil && newTarget != nil{
+        if newName?.count != 0 && newWeight?.count != 0 && newTarget?.count != 0 {
             NewUser.ChangeName(NewName: newName!)
             NewUser.ChangeWeigth(NewWeight: newWeight!)
             NewUser.ChangeTarget(NewTarget: newTarget!)
-            VC.textFromVC = "0/\(newTarget)"
+            delegate?.update(text: newTarget!)
         } else {
             print("Error")
         }
