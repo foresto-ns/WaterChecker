@@ -11,12 +11,12 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WaterChecker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="WaterChecker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BgX-3a-Mf1">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BgX-3a-Mf1">
                                 <rect key="frame" x="20" y="169" width="374" height="4"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDG-wa-hdd">
@@ -74,6 +74,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="yjj-6u-lGZ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="W9A-6y-jza">
+                            <connections>
+                                <action selector="PushAddAction:" destination="BYZ-38-t0r" id="Scg-Sb-EFf"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Данные" id="Sws-H0-rZf">
                             <connections>
                                 <segue destination="3rx-0D-gUp" kind="show" id="NyZ-OT-woK"/>
@@ -81,6 +86,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="ResultProgressLabel" destination="ZDG-wa-hdd" id="0tP-rM-yex"/>
+                        <outlet property="ResultProgressView" destination="BgX-3a-Mf1" id="Sme-qE-hxE"/>
                         <outlet property="TableView" destination="bUo-xV-Qrh" id="Ihi-jS-rmR"/>
                     </connections>
                 </viewController>
@@ -91,7 +98,7 @@
         <!--Данные-->
         <scene sceneID="fZB-U0-GUv">
             <objects>
-                <viewController id="3rx-0D-gUp" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegistrationViewController" id="3rx-0D-gUp" customClass="RegistrationViewController" customModule="WaterChecker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VRy-QF-X3S">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -127,6 +134,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Сохранить"/>
+                                <connections>
+                                    <action selector="SaveButton:" destination="3rx-0D-gUp" eventType="touchUpInside" id="gXk-uz-o1w"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FCz-Kb-dO5">
                                 <rect key="frame" x="155" y="272.5" width="201" height="39.5"/>
@@ -178,9 +188,12 @@
                             <constraint firstItem="LGO-Jd-8Ia" firstAttribute="top" secondItem="LVz-aM-KL2" secondAttribute="bottom" constant="54" id="zUk-lH-53q"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Данные" id="FRH-fL-S20">
-                        <barButtonItem key="backBarButtonItem" title="Готово" id="PuB-bx-D4P"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Данные" id="FRH-fL-S20"/>
+                    <connections>
+                        <outlet property="NameField" destination="FCz-Kb-dO5" id="FFv-XI-fUi"/>
+                        <outlet property="TargetField" destination="4TQ-gD-6af" id="mzr-4L-jXH"/>
+                        <outlet property="WeightField" destination="QxW-Fr-YAk" id="INw-3N-Z4Q"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Myg-QR-6jA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

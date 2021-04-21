@@ -15,6 +15,8 @@
 		844C898D262F6E0B0069EAA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844C898B262F6E0B0069EAA1 /* LaunchScreen.storyboard */; };
 		844C8998262F6E0B0069EAA1 /* WaterCheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C8997262F6E0B0069EAA1 /* WaterCheckerTests.swift */; };
 		844C89A3262F6E0B0069EAA1 /* WaterCheckerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844C89A2262F6E0B0069EAA1 /* WaterCheckerUITests.swift */; };
+		848D76B22630708800099F0B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D76B12630708800099F0B /* Model.swift */; };
+		848D76BF2630893500099F0B /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D76BE2630893500099F0B /* RegistrationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		844C899E262F6E0B0069EAA1 /* WaterCheckerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaterCheckerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		844C89A2262F6E0B0069EAA1 /* WaterCheckerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCheckerUITests.swift; sourceTree = "<group>"; };
 		844C89A4262F6E0B0069EAA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		848D76B12630708800099F0B /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		848D76BE2630893500099F0B /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				844C8989262F6E0B0069EAA1 /* Assets.xcassets */,
 				844C898B262F6E0B0069EAA1 /* LaunchScreen.storyboard */,
 				844C898E262F6E0B0069EAA1 /* Info.plist */,
+				848D76B12630708800099F0B /* Model.swift */,
+				848D76BE2630893500099F0B /* RegistrationViewController.swift */,
 			);
 			path = WaterChecker;
 			sourceTree = "<group>";
@@ -261,6 +267,8 @@
 				844C8985262F6E090069EAA1 /* ViewController.swift in Sources */,
 				844C8981262F6E090069EAA1 /* AppDelegate.swift in Sources */,
 				844C8983262F6E090069EAA1 /* SceneDelegate.swift in Sources */,
+				848D76B22630708800099F0B /* Model.swift in Sources */,
+				848D76BF2630893500099F0B /* RegistrationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
