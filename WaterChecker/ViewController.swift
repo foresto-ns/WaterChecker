@@ -22,6 +22,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         cell.textLabel?.text = data[indexPath.row]
         
+        
         return cell
     }
     
