@@ -31,7 +31,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func update(text:String){
-        ResultProgressLabel.text = text
+        ResultProgressView.alpha = 1
+        ResultProgressLabel.alpha = 1
+        
+        ResultProgressLabel.text = "\(NewUser.CurrentResult)/\(text)"
+        ResultProgressView.setProgress(Float((NewUser.CurrentResult / Int(text)!)), animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,7 +77,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var TableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        ResultProgressView.alpha = 0
+        ResultProgressLabel.alpha = 0
         
     }
 

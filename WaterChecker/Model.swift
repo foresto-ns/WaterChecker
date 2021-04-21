@@ -12,12 +12,14 @@ var WaterData: [String] = []
 class User {
     var Name: String
     var Weight: String
-    var Target: String
+    var Target: Int
+    var CurrentResult: Int
     
     init(){
         self.Name = "Test"
         self.Weight = "20"
-        self.Target = "0"
+        self.Target = 0
+        self.CurrentResult = 0
     }
     
     func ChangeName(NewName: String) {
@@ -26,11 +28,16 @@ class User {
     func ChangeWeigth(NewWeight: String) {
         self.Weight = NewWeight
     }
-    func ChangeTarget(NewTarget: String){
+    func ChangeTarget(NewTarget: Int){
         self.Target = NewTarget
+    }
+    func ChangeCurrentResult(NewResult: Int){
+        self.CurrentResult = self.CurrentResult + NewResult
     }
     
 }
+
+var NewUser = User()
 
 func AddQnt(qnt: String) {
     WaterData.append(qnt)

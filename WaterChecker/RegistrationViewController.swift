@@ -11,7 +11,7 @@ class RegistrationViewController: UIViewController {
 
     weak var delegate: FirstViewControllerDelegate?
     
-    var NewUser = User()
+    
     
     @IBOutlet weak var NameField: UITextField!
     @IBOutlet weak var WeightField: UITextField!
@@ -23,13 +23,43 @@ class RegistrationViewController: UIViewController {
         let newWeight = WeightField.text
         let newTarget = TargetField.text
         
-        if newName?.count != 0 && newWeight?.count != 0 && newTarget?.count != 0 {
+        if (newName?.count != 0 && newWeight?.count != 0 && newTarget?.count != 0 && Int(newTarget!) != nil && Int(newWeight!) != nil) {
             NewUser.ChangeName(NewName: newName!)
             NewUser.ChangeWeigth(NewWeight: newWeight!)
-            NewUser.ChangeTarget(NewTarget: newTarget!)
+            NewUser.ChangeTarget(NewTarget: Int(newTarget!)!)
             delegate?.update(text: newTarget!)
+        } else if Int(newWeight!) == nil{
+            let AlertController = UIAlertController(title: "Некорректный ввод", message: "Используйте цифры в строке 'Вес'", preferredStyle: .alert)
+            
+            let AlertAction = UIAlertAction(title: "OK", style: .default){
+                (alert) in
+            }
+            
+            AlertController.addAction(AlertAction)
+            present(AlertController, animated: true, completion: nil)
+        
+            
+        }else if Int(newTarget!) == nil{
+            let AlertController = UIAlertController(title: "Некорректный ввод", message: "Используйте цифры в строке 'Цели'", preferredStyle: .alert)
+            
+            let AlertAction = UIAlertAction(title: "OK", style: .default){
+                (alert) in
+            }
+            
+            AlertController.addAction(AlertAction)
+            present(AlertController, animated: true, completion: nil)
+        
+            
         } else {
-            print("Error")
+            let AlertController = UIAlertController(title: "Некорректный ввод", message: "Заполните все строки", preferredStyle: .alert)
+            
+            let AlertAction = UIAlertAction(title: "OK", style: .default){
+                (alert) in
+            }
+            
+            AlertController.addAction(AlertAction)
+            present(AlertController, animated: true, completion: nil)
+            
         }
        
     }
