@@ -10,6 +10,7 @@ import Foundation
 
 
 class User {
+    private var completeFlag: Bool
     private var Name: String //{
 //        set {
 //            UserDefaults.standard.set(newValue, forKey: "NameKey")
@@ -77,11 +78,16 @@ class User {
 //    }
     
     init() {
+        self.completeFlag = false
         self.Name = "Введите имя"
         self.Weight = 0
         self.Target = 0
         self.CurrentResult = 0
         self.WaterData = []
+    }
+    
+    func getCompleteFlag() -> Bool {
+        return self.completeFlag
     }
     
     func getName() -> String {
@@ -107,6 +113,13 @@ class User {
         return self.WaterData[index][key] as! String
     }
     
+    func changeCompleteFlag() {
+        if self.completeFlag {
+            self.completeFlag = false
+        } else {
+            self.completeFlag = true
+        }
+    }
     func ChangeName(NewName: String) {
         self.Name = NewName
     }
@@ -160,8 +173,10 @@ func AddQnt(qnt: String) {
     NewUser.AddCurrentResult(NewResult: qnt)
 }
 
-func DelQnt(atIndex: Int) {
-    NewUser.removeWaterData(at: atIndex)
+func DelQnt(Index: Int) {
+    let oldQnt = NewUser.getWaterData(index: Index, key: "Quantity")
+    NewUser.MinusCurrentResult(NewResult: oldQnt)
+    NewUser.removeWaterData(at: Index)
 }
 
 func EditQnt(at item: Int, newQnt: String){

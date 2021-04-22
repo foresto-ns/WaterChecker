@@ -43,8 +43,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.ResultProgressLabel.text = String(format: "%.0f/%.0f", NewUser.getCurrentResult(), NewUser.getTarget())
             self.ResultProgressView.setProgress(Float(NewUser.getCurrentResult()/NewUser.getTarget()), animated: true)
             
-            if NewUser.isTargetComplete() {
+            if NewUser.isTargetComplete() && !NewUser.getCompleteFlag(){
                 completeTargetAlert()
+                NewUser.changeCompleteFlag()
+            } else if !NewUser.isTargetComplete() && NewUser.getCompleteFlag() {
+                NewUser.changeCompleteFlag()
             }
         }
         
@@ -73,13 +76,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         ResultProgressView.alpha = 1
         ResultProgressLabel.alpha = 1
         StartLabel.alpha = 0
+        TableView.isHidden = false
         
         ResultProgressLabel.text = String(format: "%.0f/%.0f", NewUser.getCurrentResult(), Double(text)!)
         
         ResultProgressView.setProgress(Float((NewUser.getCurrentResult() / Double(text)!)), animated: true)
         
-        if NewUser.isTargetComplete() {
+        if NewUser.isTargetComplete() && !NewUser.getCompleteFlag(){
             completeTargetAlert()
+            NewUser.changeCompleteFlag()
+        } else if !NewUser.isTargetComplete() && NewUser.getCompleteFlag() {
+            NewUser.changeCompleteFlag()
         }
         
         if !AddButton.self.isEnabled{
@@ -101,10 +108,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete{
-            DelQnt(atIndex: indexPath.row)	
+            DelQnt(Index: indexPath.row)
+            self.ResultProgressLabel.text = String(format: "%.0f/%.0f", NewUser.getCurrentResult(), NewUser.getTarget())
+            self.ResultProgressView.setProgress(Float(NewUser.getCurrentResult()/NewUser.getTarget()), animated: true)
             TableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             
+        }
+        
+        if NewUser.isTargetComplete() && !NewUser.getCompleteFlag(){
+            completeTargetAlert()
+            NewUser.changeCompleteFlag()
+        } else if !NewUser.isTargetComplete() && NewUser.getCompleteFlag() {
+            NewUser.changeCompleteFlag()
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -132,8 +148,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.ResultProgressLabel.text = String(format: "%.0f/%.0f", NewUser.getCurrentResult(), NewUser.getTarget())
             self.ResultProgressView.setProgress(Float(NewUser.getCurrentResult()/NewUser.getTarget()), animated: true)
             
-            if NewUser.isTargetComplete() {
+            if NewUser.isTargetComplete() && !NewUser.getCompleteFlag(){
                 completeTargetAlert()
+                NewUser.changeCompleteFlag()
+            } else if !NewUser.isTargetComplete() && NewUser.getCompleteFlag() {
+                NewUser.changeCompleteFlag()
             }
         }
         
@@ -156,6 +175,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         ResultProgressView.alpha = 0
         ResultProgressLabel.alpha = 0
         AddButton.self.isEnabled = false
+        TableView.isHidden = true
         
     }
 

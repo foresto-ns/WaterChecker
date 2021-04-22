@@ -100,7 +100,7 @@
                         <outlet property="ResultProgressLabel" destination="ZDG-wa-hdd" id="0tP-rM-yex"/>
                         <outlet property="ResultProgressView" destination="BgX-3a-Mf1" id="Sme-qE-hxE"/>
                         <outlet property="StartLabel" destination="RSU-op-b1L" id="9o8-0v-YAP"/>
-                        <outlet property="TableView" destination="bUo-xV-Qrh" id="Ihi-jS-rmR"/>
+                        <outlet property="TableView" destination="bUo-xV-Qrh" id="1OF-cO-k55"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
