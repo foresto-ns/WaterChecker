@@ -29,11 +29,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     
     @IBAction func PushAddAction(_ sender: UIButton) {
+        let AlertController = UIAlertController(title: "Добавить", message: "Введите количество выпитой воды в мл", preferredStyle: .alert)
+        AlertController.addTextField { (textField) in
+            textField.placeholder = "250"
+        }
         
-        AddQnt(qnt: "New qnt")
-        ResultProgressLabel.text = String(format: "%.0f/%.0f", NewUser.getCurrentResult(), NewUser.getTarget())
-        ResultProgressView.setProgress(Float(NewUser.getCurrentResult()/NewUser.getTarget()), animated: true)
-        TableView.reloadData()
+        let AlertAction1 = UIAlertAction(title: "Добавить", style: .default){
+            (alert) in
+            let newQnt = AlertController.textFields![0].text
+            AddQnt(qnt: newQnt!)
+            self.TableView.reloadData()
+            
+            self.ResultProgressLabel.text = String(format: "%.0f/%.0f", NewUser.getCurrentResult(), NewUser.getTarget())
+            self.ResultProgressView.setProgress(Float(NewUser.getCurrentResult()/NewUser.getTarget()), animated: true)
+        }
+        
+        let AlertAction2 = UIAlertAction(title: "Отмена", style: .destructive){
+            (alert) in
+        }
+        
+        AlertController.addAction(AlertAction1)
+        AlertController.addAction(AlertAction2)
+        present(AlertController, animated: true, completion: nil)
+        
     }
     
     func update(text:String){
@@ -53,7 +71,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return WaterData.count
+        return NewUser.getWaterData().count
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -74,17 +92,39 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath)
         
-        cell.textLabel?.text = WaterData[indexPath.row]
-        
+        cell.textLabel?.text = NewUser.getWaterData(index: indexPath.row, key: "Quantity")
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let AlertController = UIAlertController(title: "Изменить", message: "Измените количество выпитой воды в мл", preferredStyle: .alert)
+        AlertController.addTextField { (textField) in
+            textField.placeholder = "250"
+        }
+        
+        let AlertAction1 = UIAlertAction(title: "Изменить", style: .default){
+            (alert) in
+            let newQnt = AlertController.textFields![0].text ?? NewUser.getWaterData(index: indexPath.row, key: "Quantity")
+            EditQnt(at: indexPath.row, newQnt: newQnt)
+            self.TableView.reloadData()
+            
+            self.ResultProgressLabel.text = String(format: "%.0f/%.0f", NewUser.getCurrentResult(), NewUser.getTarget())
+            self.ResultProgressView.setProgress(Float(NewUser.getCurrentResult()/NewUser.getTarget()), animated: true)
+        }
+        
+        let AlertAction2 = UIAlertAction(title: "Отмена", style: .destructive){
+            (alert) in
+        }
+        
+        AlertController.addAction(AlertAction1)
+        AlertController.addAction(AlertAction2)
+        present(AlertController, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        
+            
     }
 
     @IBOutlet weak var TableView: UITableView!

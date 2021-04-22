@@ -6,32 +6,82 @@
 //
 
 import Foundation
+//var WaterData: [[String: Any]] = []
 
-var WaterData: [[String: Any]] {
-    set {
-        UserDefaults.standard.set(WaterData, forKey: "WaterDataKey")
-        UserDefaults.standard.synchronize()
-    }
-    get {
-        if let array = UserDefaults.standard.array(forKey: "WaterDataKey") as? [[String: Any]] {
-            return array
-        } else {
-            return []
-        }
-    }
-}
 
 class User {
-    private var Name: String
-    private var Weight: Double
-    private var Target: Double
-    private var CurrentResult: Double
+    private var Name: String {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "NameKey")
+            UserDefaults.standard.synchronize()
+        }
+        get {
+            if let str: String?  = UserDefaults.standard.string(forKey: "NameKey") {
+                return str!
+            } else {
+                return ""
+            }
+        }
+    }
+    private var Weight: Double {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "WeightKey")
+            UserDefaults.standard.synchronize()
+        }
+        get {
+            if let double: Double?  = UserDefaults.standard.double(forKey: "WeightKey") {
+                return double!
+            } else {
+                return 0
+            }
+        }
+    }
+    private var Target: Double {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "TargetKey")
+            UserDefaults.standard.synchronize()
+        }
+        get {
+            if let double: Double?  = UserDefaults.standard.double(forKey: "TargetKey") {
+                return double!
+            } else {
+                return 0
+            }
+        }
+    }
+    private var CurrentResult: Double {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "CurrentResultKey")
+            UserDefaults.standard.synchronize()
+        }
+        get {
+            if let double: Double?  = UserDefaults.standard.double(forKey: "CurrentResultKey") {
+                return double!
+            } else {
+                return 0
+            }
+        }
+    }
+    private var WaterData: [[String: Any]] {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "WaterDataKey")
+            UserDefaults.standard.synchronize()
+        }
+        get {
+            if let array = UserDefaults.standard.array(forKey: "WaterDataKey") as? [[String: Any]] {
+                return array
+            } else {
+                return []
+            }
+        }
+    }
     
     init(){
         self.Name = "Введите имя"
         self.Weight = 0
         self.Target = 0
         self.CurrentResult = 0
+        self.WaterData = []
     }
     
     func getName() -> String {
@@ -50,6 +100,13 @@ class User {
         return self.CurrentResult
     }
     
+    func getWaterData() -> [[String: Any]] {
+        return self.WaterData
+    }
+    func getWaterData(index: Int, key: String) -> String {
+        return self.WaterData[index][key] as! String
+    }
+    
     func ChangeName(NewName: String) {
         self.Name = NewName
     }
@@ -62,20 +119,46 @@ class User {
         self.Target = NewTarget
     }
     
-    func ChangeCurrentResult(NewResult: Double){
-        self.CurrentResult = self.CurrentResult + NewResult
+    func AddCurrentResult(NewResult: String){
+        self.CurrentResult = self.CurrentResult + Double(NewResult)!
+    }
+    func MinusCurrentResult(NewResult: String){
+        self.CurrentResult = self.CurrentResult - Double(NewResult)!
     }
     
+    func appendWaterData(array: [String: Any]){
+        self.WaterData.append(array)
+    }
+    
+    func removeWaterData(at atIndex: Int) {
+        self.WaterData.remove(at: atIndex)
+    }
+    
+    func changeWaterData(Value: String, index: Int, key: String){
+        self.WaterData[index][key] = Value
+    }
 }
 
 var NewUser = User()
 
 func AddQnt(qnt: String) {
+    let hh = (Calendar.current.component(.hour, from: Date()))
+    let mm = (Calendar.current.component(.minute, from: Date()))
+    let ss = (Calendar.current.component(.second, from: Date()))
+     
+    let time = String(format: "%02d:%02d:%02d", hh, mm, ss)
     
-    //WaterData.append(["Quantity": qnt, "Time": time])
-    NewUser.ChangeCurrentResult(NewResult: 200)
+    NewUser.appendWaterData(array: ["Quantity": qnt, "Time": time])
+    NewUser.AddCurrentResult(NewResult: qnt)
 }
 
 func DelQnt(atIndex: Int) {
-    WaterData.remove(at: atIndex)
+    NewUser.removeWaterData(at: atIndex)
+}
+
+func EditQnt(at item: Int, newQnt: String){
+    let oldQnt = NewUser.getWaterData(index: item, key: "Quantity")
+    NewUser.MinusCurrentResult(NewResult: oldQnt)
+    NewUser.changeWaterData(Value: newQnt, index: item, key: "Quantity")
+    NewUser.AddCurrentResult(NewResult: newQnt)
 }
