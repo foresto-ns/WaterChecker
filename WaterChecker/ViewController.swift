@@ -34,7 +34,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             textField.placeholder = "250"
         }
         
-        let AlertAction1 = UIAlertAction(title: "Добавить", style: .default){
+        let AlertAction1 = UIAlertAction(title: "Добавить", style: .default){ [self]
             (alert) in
             let newQnt = AlertController.textFields![0].text
             AddQnt(qnt: newQnt!)
@@ -42,6 +42,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             self.ResultProgressLabel.text = String(format: "%.0f/%.0f", NewUser.getCurrentResult(), NewUser.getTarget())
             self.ResultProgressView.setProgress(Float(NewUser.getCurrentResult()/NewUser.getTarget()), animated: true)
+            
+            if NewUser.isTargetComplete() {
+                completeTargetAlert()
+            }
         }
         
         let AlertAction2 = UIAlertAction(title: "Отмена", style: .destructive){
@@ -54,6 +58,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    func completeTargetAlert() {
+        let AlertController = UIAlertController(title: "Поздравляем!", message: "Вы достигли своей цели!", preferredStyle: .alert)
+        
+        let AlertAction = UIAlertAction(title: "Ура!", style: .default){
+            (alert) in
+        }
+        
+        AlertController.addAction(AlertAction)
+        self.present(AlertController, animated: true, completion: nil)
+    }
+    
     func update(text:String){
         ResultProgressView.alpha = 1
         ResultProgressLabel.alpha = 1
@@ -62,6 +77,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         ResultProgressLabel.text = String(format: "%.0f/%.0f", NewUser.getCurrentResult(), Double(text)!)
         
         ResultProgressView.setProgress(Float((NewUser.getCurrentResult() / Double(text)!)), animated: true)
+        
+        if NewUser.isTargetComplete() {
+            completeTargetAlert()
+        }
         
         if !AddButton.self.isEnabled{
             AddButton.self.isEnabled = true
@@ -92,7 +111,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath)
         
-        cell.textLabel?.text = NewUser.getWaterData(index: indexPath.row, key: "Quantity")
+        cell.textLabel?.text = NewUser.getWaterData(index: indexPath.row, key: "Time") + "\t\t-\t\t" + NewUser.getWaterData(index: indexPath.row, key: "Quantity") + " мл"
         return cell
     }
     
@@ -104,7 +123,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             textField.placeholder = "250"
         }
         
-        let AlertAction1 = UIAlertAction(title: "Изменить", style: .default){
+        let AlertAction1 = UIAlertAction(title: "Изменить", style: .default){ [self]
             (alert) in
             let newQnt = AlertController.textFields![0].text ?? NewUser.getWaterData(index: indexPath.row, key: "Quantity")
             EditQnt(at: indexPath.row, newQnt: newQnt)
@@ -112,6 +131,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             self.ResultProgressLabel.text = String(format: "%.0f/%.0f", NewUser.getCurrentResult(), NewUser.getTarget())
             self.ResultProgressView.setProgress(Float(NewUser.getCurrentResult()/NewUser.getTarget()), animated: true)
+            
+            if NewUser.isTargetComplete() {
+                completeTargetAlert()
+            }
         }
         
         let AlertAction2 = UIAlertAction(title: "Отмена", style: .destructive){
@@ -136,6 +159,4 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
 
-
 }
-

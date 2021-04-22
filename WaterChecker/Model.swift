@@ -10,73 +10,73 @@ import Foundation
 
 
 class User {
-    private var Name: String {
-        set {
-            UserDefaults.standard.set(newValue, forKey: "NameKey")
-            UserDefaults.standard.synchronize()
-        }
-        get {
-            if let str: String?  = UserDefaults.standard.string(forKey: "NameKey") {
-                return str!
-            } else {
-                return ""
-            }
-        }
-    }
-    private var Weight: Double {
-        set {
-            UserDefaults.standard.set(newValue, forKey: "WeightKey")
-            UserDefaults.standard.synchronize()
-        }
-        get {
-            if let double: Double?  = UserDefaults.standard.double(forKey: "WeightKey") {
-                return double!
-            } else {
-                return 0
-            }
-        }
-    }
-    private var Target: Double {
-        set {
-            UserDefaults.standard.set(newValue, forKey: "TargetKey")
-            UserDefaults.standard.synchronize()
-        }
-        get {
-            if let double: Double?  = UserDefaults.standard.double(forKey: "TargetKey") {
-                return double!
-            } else {
-                return 0
-            }
-        }
-    }
-    private var CurrentResult: Double {
-        set {
-            UserDefaults.standard.set(newValue, forKey: "CurrentResultKey")
-            UserDefaults.standard.synchronize()
-        }
-        get {
-            if let double: Double?  = UserDefaults.standard.double(forKey: "CurrentResultKey") {
-                return double!
-            } else {
-                return 0
-            }
-        }
-    }
-    private var WaterData: [[String: Any]] {
-        set {
-            UserDefaults.standard.set(newValue, forKey: "WaterDataKey")
-            UserDefaults.standard.synchronize()
-        }
-        get {
-            if let array = UserDefaults.standard.array(forKey: "WaterDataKey") as? [[String: Any]] {
-                return array
-            } else {
-                return []
-            }
-        }
-    }
+    private var Name: String //{
+//        set {
+//            UserDefaults.standard.set(newValue, forKey: "NameKey")
+//            UserDefaults.standard.synchronize()
+//        }
+//        get {
+//            if let str: String?  = UserDefaults.standard.string(forKey: "NameKey") {
+//                return str!
+//            } else {
+//                return ""
+//            }
+//        }
+//    }
+    private var Weight: Double // {
+//        set {
+//            UserDefaults.standard.set(newValue, forKey: "WeightKey")
+//            UserDefaults.standard.synchronize()
+//        }
+//        get {
+//            if let double: Double?  = UserDefaults.standard.double(forKey: "WeightKey") {
+//                return double!
+//            } else {
+//                return 0
+//            }
+//        }
+//    }
+    private var Target: Double //{
+//        set {
+//            UserDefaults.standard.set(newValue, forKey: "TargetKey")
+//            UserDefaults.standard.synchronize()
+//        }
+//        get {
+//            if let double: Double?  = UserDefaults.standard.double(forKey: "TargetKey") {
+//                return double!
+//            } else {
+//                return 0
+//            }
+//        }
+//    }
+    private var CurrentResult: Double //{
+//        set {
+//            UserDefaults.standard.set(newValue, forKey: "CurrentResultKey")
+//            UserDefaults.standard.synchronize()
+//        }
+//        get {
+//            if let double: Double?  = UserDefaults.standard.double(forKey: "CurrentResultKey") {
+//                return double!
+//            } else {
+//                return 0
+//            }
+//        }
+//    }
+    private var WaterData: [[String: Any]] //{
+//        set {
+//            UserDefaults.standard.set(newValue, forKey: "WaterDataKey")
+//            UserDefaults.standard.synchronize()
+//        }
+//        get {
+//            if let array = UserDefaults.standard.array(forKey: "WaterDataKey") as? [[String: Any]] {
+//                return array
+//            } else {
+//                return []
+//            }
+//        }
+//    }
     
-    init(){
+    init() {
         self.Name = "Введите имя"
         self.Weight = 0
         self.Target = 0
@@ -136,6 +136,14 @@ class User {
     
     func changeWaterData(Value: String, index: Int, key: String){
         self.WaterData[index][key] = Value
+    }
+    
+    func isTargetComplete() -> Bool {
+        if(self.getCurrentResult() >= self.getTarget()) {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
